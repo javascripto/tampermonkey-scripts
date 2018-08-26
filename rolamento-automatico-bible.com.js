@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  Acrescenta um range input na pagina para controlar o rolamento automatico
 // @author       Yuri Alves de ALmeida
-// @match        https://www.bible.com/*/*
+// @match        https://my.bible.com/*/*
 // @grant        none
 // ==/UserScript==
 
@@ -19,6 +19,8 @@
     range.type = 'range';
     range.min = 0;
     range.max = 200;
+    // range.max = posMax()
+    // range.oninput = () => setY(Number(range.value));
     document.querySelector('.reader-header.horizontal-center').prepend(range);
 
     var speed = range.value = range.max;
@@ -31,4 +33,27 @@
 
     range.style.transform = 'rotate(180deg)';
     iniciar();
+
+    var estilo = document.createElement('style');
+    document.body.append(estilo);
+
+    estilo.innerHTML = `
+.yv-sticky-header-content.yv-sticky-header-fixed, .reader-header.horizontal-center, .footer-container {
+	background: #333 !important;
+}
+input, input[type=search], .search{
+	background: #444;
+	color: #fff;
+}
+svg.searchicon-container {
+	background: #444 !important;
+}
+#react-app-Bible >div {
+	background: #222 !important;
+	color: #888;
+}
+div[dir=left], div[dir=right] {
+	background: #333;
+}
+`;
 })();
